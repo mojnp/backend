@@ -1,6 +1,6 @@
 const { connectToDb } = require("../../../database/db");
 
-const db = connectToDb();
+const db = connectToDb("users");
 
 async function getAllUsers() {
     try {
@@ -14,7 +14,7 @@ async function getAllUsers() {
     }
 }
 
-async function update_user(username, user) {
+async function updateUser(username, user) {
     try {
         const existingUser = await db.collection("users").findOne({ username });
         if (!existingUser) {
@@ -42,7 +42,7 @@ async function update_user(username, user) {
     }
 }
 
-async function get_user_by_username(username) {
+async function getUserByUsername(username) {
     try {
         const user = await db.collection("users").findOne({ username });
         if (!user) {
@@ -54,7 +54,7 @@ async function get_user_by_username(username) {
     }
 }
 
-async function get_by_parameter(parameter, value) {
+async function getByParameter(parameter, value) {
     try {
         const user = await db
             .collection("users")
@@ -68,7 +68,7 @@ async function get_by_parameter(parameter, value) {
     }
 }
 
-async function create_user(user) {
+async function createUser(user) {
     try {
         const existingUser = await db
             .collection("users")
@@ -88,7 +88,7 @@ async function create_user(user) {
     }
 }
 
-async function delete_user(username) {
+async function deleteUser(username) {
     try {
         const deletedUser = await db
             .collection("users")
@@ -105,9 +105,9 @@ async function delete_user(username) {
 module.exports = {
     connectToDb,
     getAllUsers,
-    update_user,
-    get_user_by_username,
-    get_by_parameter,
-    create_user,
-    delete_user,
+    updateUser,
+    getUserByUsername,
+    getByParameter,
+    createUser,
+    deleteUser,
 };

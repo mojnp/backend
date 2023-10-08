@@ -1,5 +1,5 @@
 const User = require("../schemas/user"); // Replace with the correct path
-const usersService = require("../services/users_service"); // Replace with the correct path
+const usersService = require("../services/usersService"); // Replace with the correct path
 
 function getAllUsers() {
     return usersService.getAllUsers();

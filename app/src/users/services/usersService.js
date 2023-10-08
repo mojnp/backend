@@ -5,9 +5,9 @@ const {
     EMAIL_SENDER,
 } = require("../constants"); // Replace with the correct path
 
-const usersAccess = require("../data_access/users_access"); // Replace with the correct path
-const { hashedPassword } = require("../helpers/hash_password"); // Replace with the correct path
-const Email = require("../helpers/send_mail"); // Replace with the correct path
+const usersAccess = require("../data_access/usersAccess"); // Replace with the correct path
+const { hashedPassword } = require("../helpers/hashPassword"); // Replace with the correct path
+const Email = require("../helpers/sendMail"); // Replace with the correct path
 const UserModel = require("../schemas/user"); // Replace with the correct path
 
 function _parseUser(user) {

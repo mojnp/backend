@@ -5,7 +5,7 @@ const {
     getUserByUsername,
     updateUser,
     deleteUser,
-} = require("../repository/users_repo");
+} = require("../repository/usersRepo");
 
 const usersCrudRouter = express.Router();
 
