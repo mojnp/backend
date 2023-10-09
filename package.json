@@ -1,4 +1,8 @@
 {
+    "scripts": {
+        "lint": "eslint . --fix",
+        "test": "eslint . --fix"
+    },
     "dependencies": {
         "aws-sdk": "^2.1468.0",
         "axios": "^1.5.1",
@@ -9,6 +13,7 @@
         "express-validator": "^7.0.1",
         "http-exceptions": "^0.5.0",
         "http-status-codes": "^2.3.0",
+        "jshint": "^2.13.6",
         "jsonwebtoken": "^9.0.2",
         "mongodb": "^6.1.0",
         "mongoose": "^7.6.0",
@@ -18,5 +23,12 @@
         "rate-limiter-flexible": "^3.0.0",
         "rss-parser": "^3.13.0",
         "sharp": "^0.32.6"
+    },
+    "devDependencies": {
+        "eslint": "^8.51.0",
+        "eslint-config-standard": "^17.1.0",
+        "eslint-plugin-import": "^2.28.1",
+        "eslint-plugin-n": "^16.1.0",
+        "eslint-plugin-promise": "^6.1.1"
     }
 }
