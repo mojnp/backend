@@ -1,6 +1,5 @@
 const mongodb = require("mongodb");
 const { connectToDb } = require("../../../database/db");
-const { query } = require("express");
 
 const db = connectToDb("news");
 
@@ -17,10 +16,9 @@ async function getAll() {
 async function create(data) {
     data._id = data.linkId;
     try {
-        await new db.insertOne(data);
-        return data; // Return the newly created item
+        await db.insertOne(data);
+        return data;
     } catch (error) {
-        console.error(error);
         throw new Error("Error: Cannot create the news item");
     }
 }
@@ -55,7 +53,7 @@ async function update(data) {
 }
 
 async function getByKey(id) {
-    let query = new mongodb.ObjectId("6522e8be2088f98c90f88264");
+    const query = new mongodb.ObjectId("6522e8be2088f98c90f88264");
 
     try {
         return await db?.findOne({
