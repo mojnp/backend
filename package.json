@@ -1,6 +1,7 @@
 {
     "scripts": {
-        "lint": "eslint . --fix"
+        "lint": "eslint . --fix",
+        "test": "eslint . --fix"
     },
     "dependencies": {
         "aws-sdk": "^2.1468.0",
