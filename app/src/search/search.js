@@ -1,8 +1,8 @@
-const express = require("express");
-const searchRouterMain = require("./routers/searchRouter");
+const express = require('express')
+const searchRouterMain = require('./routers/searchRouter')
 
-const searchRouter = express.Router();
+const searchRouter = express.Router()
 
-searchRouter.use("/", searchRouterMain);
+searchRouter.use('/', searchRouterMain)
 
-module.exports = searchRouter;
+module.exports = searchRouter

@@ -1,4 +1,5 @@
 const express = require('express')
+const cron = require('node-cron')
 const { writeToDb } = require('../helpers/feed') // Replace with the correct path
 
 const currentUrls = [
@@ -21,14 +22,13 @@ router.post('/generate', async (req, res) => {
   }
 })
 
-
-cron.schedule("* * * * *", async () => {
-    try {
-        await writeToDb(currentUrls);
-        console.log("News updated");
-    } catch (error) {
-        console.error("Error updating news:", error);
-    }
-});
+cron.schedule('* * * * *', async () => {
+  try {
+    await writeToDb(currentUrls)
+    console.log('News updated')
+  } catch (error) {
+    console.error('Error updating news:', error)
+  }
+})
 
 module.exports = router
