@@ -11,7 +11,6 @@ const currentUrls = [
 
 const router = express.Router();
 
-// Define a route for generating news
 router.post("/generate", async (req, res) => {
     try {
         await writeToDb(currentUrls);
@@ -22,13 +21,13 @@ router.post("/generate", async (req, res) => {
     }
 });
 
-// cron.schedule("* * * * *", async () => {
-//     try {
-//         await writeToDb(currentUrls);
-//         console.log("News updated");
-//     } catch (error) {
-//         console.error("Error updating news:", error);
-//     }
-// });
+cron.schedule("* * * * *", async () => {
+    try {
+        await writeToDb(currentUrls);
+        console.log("News updated");
+    } catch (error) {
+        console.error("Error updating news:", error);
+    }
+});
 
 module.exports = router;
