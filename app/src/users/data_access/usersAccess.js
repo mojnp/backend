@@ -1,113 +1,92 @@
-const { connectToDb } = require('../../../database/db')
+const { connectToDb } = require("../../../database/db");
 
-const db = connectToDb('users')
+const db = connectToDb("users");
 
-async function getAllUsers () {
-  try {
-    const users = await db.collection('users').find({}).toArray()
-    if (users.length === 0) {
-      return []
-    }
-    return users
-  } catch (error) {
-    return []
-  }
-}
-
-async function updateUser (username, user) {
-  try {
-    const existingUser = await db.collection('users').findOne({ username })
-    if (!existingUser) {
-      return []
-    }
-
-    const updatedUser = {
-      ...existingUser,
-      ...Object.fromEntries(
-        Object.entries(user).filter(([_, v]) => v !== null)
-      )
-    }
-
+async function getAllUsers() {
     try {
-      await db
-        .collection('users')
-        .updateOne({ username }, { $set: updatedUser })
+        const users = await db.find({}).toArray();
+        if (users.length === 0) {
+            return [];
+        }
+        return users;
     } catch (error) {
-      return []
+        return [];
     }
-
-    return updatedUser
-  } catch (error) {
-    return []
-  }
 }
 
-async function getUserByUsername (username) {
-  try {
-    const user = await db.collection('users').findOne({ username })
-    if (!user) {
-      return []
+async function updateUser(username, user) {
+    const existingUser = await db.findOne({ username: username });
+    if (!existingUser) {
+        return [];
     }
-    return user
-  } catch (error) {
-    return []
-  }
+    try {
+        await db.updateOne({ username }, { $set: user });
+    } catch (error) {
+        return [];
+    }
+    return user;
 }
 
-async function getByParameter (parameter, value) {
-  try {
-    const user = await db
-      .collection('users')
-      .findOne({ [parameter]: value })
-    if (!user) {
-      return []
+async function getUserByUsername(username) {
+    try {
+        const user = await db.findOne({ username });
+        if (!user) {
+            return [];
+        }
+        return user;
+    } catch (error) {
+        return [];
     }
-    return user
-  } catch (error) {
-    return []
-  }
 }
 
-async function createUser (user) {
-  try {
-    const existingUser = await db
-      .collection('users')
-      .countDocuments({ id: user.id })
-    if (existingUser === 0) {
-      user._id = user.username
-      try {
-        await db.collection('users').insertOne(user)
-        return user
-      } catch (error) {
-        return []
-      }
+async function getByParameter(parameter, value) {
+    try {
+        const user = await db.findOne({ [parameter]: value });
+        if (!user) {
+            return [];
+        }
+        return user;
+    } catch (error) {
+        return [];
     }
-    return { message: 'User already exists' }
-  } catch (error) {
-    return []
-  }
 }
 
-async function deleteUser (username) {
-  try {
-    const deletedUser = await db
-      .collection('users')
-      .findOneAndDelete({ username })
-    if (!deletedUser.value) {
-      return []
+async function createUser(user) {
+    try {
+        const existingUser = await db.countDocuments({ id: user.id });
+        if (existingUser === 0) {
+            user._id = user.username;
+            try {
+                await db.insertOne(user);
+                return user;
+            } catch (error) {
+                return [];
+            }
+        }
+        return { message: "User already exists" };
+    } catch (error) {
+        return [];
     }
-    return deletedUser.value
-  } catch (error) {
-    return []
-  }
+}
+
+async function deleteUser(username) {
+    try {
+        const deletedUser = await db.findOneAndDelete({ username });
+        if (!deletedUser.value) {
+            return [];
+        }
+        return deletedUser.value;
+    } catch (error) {
+        return [];
+    }
 }
 
 module.exports = {
-  connectToDb,
-  getAllUsers,
-  updateUser,
-  getUserByUsername,
-  getByParameter,
-  createUser,
-  deleteUser
-}
+    connectToDb,
+    getAllUsers,
+    updateUser,
+    getUserByUsername,
+    getByParameter,
+    createUser,
+    deleteUser,
+};
